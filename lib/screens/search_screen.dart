@@ -109,7 +109,10 @@ class _SearchScreenState extends State<SearchScreen> {
             Expanded(
               child: articles.isEmpty && isLoading
                   ? Center(child: CircularProgressIndicator())
-                  : ListView.builder(
+                  : ListView.separated(
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: height * 0.02);
+                },
                 controller: scrollController,
                 itemCount: articles.length + (hasMore ? 1 : 0),
                 itemBuilder: (context, index) {
@@ -117,7 +120,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     return NewsItem(article: articles[index]);
                   } else {
                     return Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.02,
+                        vertical: height * 0.02,
+                      ),
                       child: Center(child: CircularProgressIndicator()),
                     );
                   }
